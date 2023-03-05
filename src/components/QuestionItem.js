@@ -4,7 +4,7 @@ const QuestionItem = () => {
   const navigate = useNavigate();
 
   const handleShowPoll = () => {
-    navigate("/main/poll/123");
+    navigate("/main/questions/123");
   };
 
   return (
