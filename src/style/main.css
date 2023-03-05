@@ -6,8 +6,13 @@
 }
 
 .main-header {
-    border-bottom: 2px solid #ededed;
+    max-width: 1400px;
+    margin: auto;
+}
+
+.header-container {
     padding: 0 10px;
+    border-bottom: 2px solid #ededed;
 }
 
 .main-nav-item, .user-item {

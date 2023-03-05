@@ -18,44 +18,46 @@ const Main = () => {
   }, [window.location.pathname]);
 
   return (
-    <div>
-      <div className="main-header">
-        <div className="main-nav">
-          {subRoute.map((el) => {
-            const isActive = currentPath.includes(el);
-            return (
-              <Link
-                key={el}
-                to={`/main/${el}`}
-                className={`main-nav-item ${isActive ? "active" : ""}`}
-              >
-                {el[0].toUpperCase() + el.slice(1)}
-              </Link>
-            );
-          })}
-        </div>
-
-        <div className="user">
-          <div className="user-item">
-            <img src="/avt2.jpg" alt="" />
-            <span>name</span>
+    <>
+      <div className="header-container">
+        <div className="main-header">
+          <div className="main-nav">
+            {subRoute.map((el) => {
+              const isActive = currentPath.includes(el);
+              return (
+                <Link
+                  key={el}
+                  to={`/main/${el}`}
+                  className={`main-nav-item ${isActive ? "active" : ""}`}
+                >
+                  {el[0].toUpperCase() + el.slice(1)}
+                </Link>
+              );
+            })}
           </div>
-          <button
-            style={{
-              background: "none",
-              color: "inherit",
-              border: "none",
-              cursor: "pointer",
-            }}
-            onClick={handleLogout}
-            className="user-item"
-          >
-            Logout
-          </button>
+
+          <div className="user">
+            <div className="user-item">
+              <img src="/avt2.jpg" alt="" />
+              <span>name</span>
+            </div>
+            <button
+              style={{
+                background: "none",
+                color: "inherit",
+                border: "none",
+                cursor: "pointer",
+              }}
+              onClick={handleLogout}
+              className="user-item"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
       <Outlet />
-    </div>
+    </>
   );
 };
 
