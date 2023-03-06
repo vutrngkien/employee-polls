@@ -1,15 +1,19 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { removeAuthId } from "../redux/reducer/authReducer";
+import { getUsersSelector } from "../redux/selector/user";
+import { fetchQuestions } from "../redux/thunk/question.thunk";
+import { fetchUsers } from "../redux/thunk/user.thunk";
 import "../style/main.css";
 
 const subRoute = ["home", "leaderboard", "new"];
 
 const Main = () => {
-  const users = useSelector((state) => state.user.users);
+  const users = useSelector(getUsersSelector);
   const authId = useSelector((state) => state.auth.authId);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [authUser, setAuthUser] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -23,7 +27,11 @@ const Main = () => {
     setCurrentPath(window.location.pathname);
   }, [window.location.pathname]);
 
-  const userLogin = useMemo(() => {
+  useEffect(() => {
+    if (!users.length) dispatch(fetchUsers());
+  }, []);
+
+  useEffect(() => {
     const authStorageId = localStorage.getItem("authId") || "";
     const id = authId || authStorageId;
     if (!id) {
@@ -31,8 +39,12 @@ const Main = () => {
       return;
     }
 
-    return users[id];
-  }, [users, authId]);
+    setAuthUser(users[id]);
+  }, [users]);
+
+  useEffect(() => {
+    dispatch(fetchQuestions());
+  }, []);
 
   return (
     <>
@@ -55,8 +67,8 @@ const Main = () => {
 
           <div className="user">
             <div className="user-item">
-              <img src={userLogin.avatarURL} alt="" />
-              <span>{userLogin.name}</span>
+              <img src={authUser?.avatarURL} alt="" />
+              <span>{authUser?.name}</span>
             </div>
             <button
               style={{

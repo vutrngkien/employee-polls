@@ -53,7 +53,7 @@ let questions = {
     author: "sarahedo",
     timestamp: 1467166872634,
     optionOne: {
-      votes: ["sarahedo"],
+      votes: ["sarahedo", "kienvt"],
       text: "Build our new application with Javascript",
     },
     optionTwo: {

@@ -1,6 +1,6 @@
 import QuestionItem from "./QuestionItem";
 
-const QuestionContainer = ({ title }) => {
+const QuestionContainer = ({ title, questions }) => {
   return (
     <div className="question-container">
       <div className="container-header">
@@ -8,11 +8,11 @@ const QuestionContainer = ({ title }) => {
       </div>
 
       <div className="list-question-item">
-        <QuestionItem />
-        <QuestionItem />
-        <QuestionItem />
-        <QuestionItem />
-        <QuestionItem />
+        {questions.length ? (
+          questions.map((ques) => <QuestionItem question={ques} />)
+        ) : (
+          <p>empty</p>
+        )}
       </div>
     </div>
   );

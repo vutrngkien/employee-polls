@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CustomForm from "../components/CustomForm";
 import "../style/login.css";
 import { setAuthId } from "../redux/reducer/authReducer";
+import { getUsersSelector } from "../redux/selector/user";
+import { fetchUsers } from "../redux/thunk/user.thunk";
 
 const Login = () => {
   const [isError, setIsError] = useState(false);
-  const users = useSelector((state) => state.user.users);
+  const users = useSelector(getUsersSelector);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,6 +41,10 @@ const Login = () => {
     type: "password",
     placeholder: "password",
   };
+
+  useEffect(() => {
+    if (!users.length) dispatch(fetchUsers());
+  }, []);
 
   return (
     <div className="login-container">
