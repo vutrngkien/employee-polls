@@ -1,21 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { removeAuthId } from "../redux/reducer/authReducer";
 import "../style/main.css";
 
 const subRoute = ["home", "leaderboard", "new"];
 
 const Main = () => {
+  const users = useSelector((state) => state.user.users);
+  const authId = useSelector((state) => state.auth.authId);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.removeItem("authId");
+    dispatch(removeAuthId());
     navigate("/login");
   };
 
   useEffect(() => {
     setCurrentPath(window.location.pathname);
   }, [window.location.pathname]);
+
+  const userLogin = useMemo(() => {
+    const authStorageId = localStorage.getItem("authId") || "";
+    const id = authId || authStorageId;
+    if (!id) {
+      navigate("/login");
+      return;
+    }
+
+    return users[id];
+  }, [users, authId]);
 
   return (
     <>
@@ -38,8 +55,8 @@ const Main = () => {
 
           <div className="user">
             <div className="user-item">
-              <img src="/avt2.jpg" alt="" />
-              <span>name</span>
+              <img src={userLogin.avatarURL} alt="" />
+              <span>{userLogin.name}</span>
             </div>
             <button
               style={{

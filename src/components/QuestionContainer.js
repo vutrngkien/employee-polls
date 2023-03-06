@@ -3,7 +3,7 @@ import QuestionItem from "./QuestionItem";
 const QuestionContainer = ({ title }) => {
   return (
     <div className="question-container">
-      <div class="container-header">
+      <div className="container-header">
         <h1>{title}</h1>
       </div>
 

@@ -35,9 +35,9 @@ let users = {
     },
     questions: ["6ni6ok3ym7mf1p33lnez", "xj352vofupe1dqz9emx13r"],
   },
-  zoshikanlu: {
-    id: "zoshikanlu",
-    password: "pass246",
+  kienvt: {
+    id: "kienvt",
+    password: "kienvt",
     name: "Zenobia Oshikanlu",
     avatarURL: "/avt4.jpg",
     answers: {

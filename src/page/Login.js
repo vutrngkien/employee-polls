@@ -1,11 +1,26 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CustomForm from "../components/CustomForm";
 import "../style/login.css";
+import { setAuthId } from "../redux/reducer/authReducer";
 
 const Login = () => {
+  const [isError, setIsError] = useState(false);
+  const users = useSelector((state) => state.user.users);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleSubmitForm = ({ value1, value2 }) => {
-    console.log(value1, value2);
+  const handleSubmitForm = ({ value1: username, value2: password }) => {
+    const ids = Object.keys(users);
+    if (!ids.includes(username) || users[username].password !== password) {
+      setIsError(true);
+      return;
+    }
+    setIsError(false);
+    dispatch(setAuthId(username));
+    localStorage.setItem("authId", username);
+
     navigate("/main/home");
   };
 
@@ -37,6 +52,7 @@ const Login = () => {
         input1={input1}
         input2={input2}
       />
+      {isError && <p>username or password is incorrect!</p>}
     </div>
   );
 };
