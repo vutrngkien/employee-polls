@@ -1,6 +1,13 @@
+import { useDispatch, useSelector } from "react-redux";
+import { fetchQuestions } from "../redux/thunk/question.thunk";
+import { _saveQuestion } from "../_DATA";
 import CustomForm from "./CustomForm";
 
 const New = () => {
+  const authId = useSelector((state) => state.auth.authId);
+
+  const dispatch = useDispatch();
+
   const input1 = {
     label: "First Option",
     id: "optionOne",
@@ -17,8 +24,15 @@ const New = () => {
     placeholder: "Option Two",
   };
 
-  const handleSubmitForm = (values) => {
-    console.log(values);
+  const handleSubmitForm = async ({
+    value1: optionOneText,
+    value2: optionTwoText,
+  }) => {
+    const auth = authId || localStorage.getItem("authId");
+
+    const question = { optionOneText, optionTwoText, author: auth };
+    await _saveQuestion(question);
+    dispatch(fetchQuestions());
   };
 
   return (
