@@ -17,7 +17,6 @@ const CustomForm = ({ onSubmit, input1, input2, title, style }) => {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    console.log();
     const values = {
       value1: input1Value,
       value2: input2Value,

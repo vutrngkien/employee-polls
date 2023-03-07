@@ -9,7 +9,7 @@ const QuestionContainer = ({ title, questions }) => {
 
       <div className="list-question-item">
         {questions.length ? (
-          questions.map((ques) => <QuestionItem question={ques} />)
+          questions.map((ques, i) => <QuestionItem key={i} question={ques} />)
         ) : (
           <p>empty</p>
         )}

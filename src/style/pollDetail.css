@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: column;
     border: 1px solid rgb(187, 187, 195);
-    width: 350px;
+    min-width: 350px;
     height: 60px;
     justify-content: center;
     align-items: center;
