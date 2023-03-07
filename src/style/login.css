@@ -1,56 +1,54 @@
 .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
 }
 img {
-    width: 400px;
+  width: 400px;
 }
 
 .login-title {
-    display: block;
-    margin: 100px 0 20px;
-    text-align: center;
-    font-size: 30px;
+  display: block;
+  margin: 100px 0 20px;
+  text-align: center;
+  font-size: 30px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .submit-btn {
-    margin-top: 16px;
-    width: 120px;
-    height: 30px;
-    border: none;
-    border-radius: 5px;
+  margin-top: 16px;
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
 }
 
-
 .form-header {
-    font-size: 22px;
-    text-align: center;
-    display: block;
-    margin-bottom: 14px;
+  font-size: 22px;
+  text-align: center;
+  display: block;
+  margin-bottom: 14px;
 }
 
 .login-input-component {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login-label {
-    margin-bottom: 4px;
-    margin-top: 6px
+  margin-bottom: 4px;
+  margin-top: 6px;
 }
 
 .login-input {
-    width: 400px;
-    height: 30px;
-    padding: 3px 8px;
+  width: 400px;
+  height: 30px;
+  padding: 3px 8px;
 }
-

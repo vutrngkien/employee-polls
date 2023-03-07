@@ -1,7 +1,14 @@
 import { useState } from "react";
 import Input from "./Input";
 
-const CustomForm = ({ onSubmit, input1, input2, title, style }) => {
+const CustomForm = ({
+  onSubmit,
+  input1,
+  input2,
+  title,
+  style,
+  isClearInput,
+}) => {
   const [input1Value, setInput1Value] = useState("");
   const [input2Value, setInput2Value] = useState("");
 
@@ -22,6 +29,10 @@ const CustomForm = ({ onSubmit, input1, input2, title, style }) => {
       value2: input2Value,
     };
     onSubmit(values);
+    if (isClearInput) {
+      setInput1Value("");
+      setInput2Value("");
+    }
   };
 
   return (

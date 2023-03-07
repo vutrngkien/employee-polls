@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchQuestions } from "../redux/thunk/question.thunk";
+import { fetchUsers } from "../redux/thunk/user.thunk";
 import { _saveQuestion } from "../_DATA";
 import CustomForm from "./CustomForm";
 
@@ -33,6 +34,7 @@ const New = () => {
     const question = { optionOneText, optionTwoText, author: auth };
     await _saveQuestion(question);
     dispatch(fetchQuestions());
+    dispatch(fetchUsers());
   };
 
   return (
@@ -50,6 +52,7 @@ const New = () => {
       <CustomForm
         title="Create Your Own Poll"
         onSubmit={handleSubmitForm}
+        isClearInput
         input1={input1}
         input2={input2}
       />

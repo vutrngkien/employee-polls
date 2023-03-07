@@ -36,7 +36,7 @@ const Home = () => {
 
     setVoted(votedQ.filter((item) => item));
     setNotVotedYet(notVoted.filter((item) => item));
-  }, [questions]);
+  }, [questions, authId]);
 
   return (
     <div className="container">
