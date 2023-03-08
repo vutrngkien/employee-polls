@@ -179,6 +179,10 @@ export function _saveQuestion(question) {
         ...questions,
         [formattedQuestion.id]: formattedQuestion,
       };
+      if (!question.author || !users[question.author]) {
+        resolve(formattedQuestion);
+        return;
+      }
 
       users = {
         ...users,
@@ -202,6 +206,7 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
       reject("Please provide authedUser, qid, and answer");
     }
 
+    if (!users[authedUser]) return resolve(true);
     setTimeout(() => {
       users = {
         ...users,
