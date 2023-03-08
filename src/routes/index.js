@@ -17,23 +17,23 @@ const routes = [
     element: <Login />,
   },
   {
-    path: "/main",
+    path: "/",
     element: <Main />,
     children: [
       {
-        path: "/main/home",
+        path: "/home",
         element: <Home />,
       },
       {
-        path: "/main/leaderboard",
+        path: "/leaderboard",
         element: <Leaderboard />,
       },
       {
-        path: "/main/new",
+        path: "/add",
         element: <New />,
       },
       {
-        path: "/main/questions/:question_id",
+        path: "/questions/:question_id",
         element: <PollDetail />,
       },
     ],

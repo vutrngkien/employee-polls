@@ -7,8 +7,7 @@ import { fetchQuestions } from "../redux/thunk/question.thunk";
 import { fetchUsers } from "../redux/thunk/user.thunk";
 import "../style/main.css";
 
-const subRoute = ["home", "leaderboard", "new"];
-
+const subRoute = ["home", "leaderboard", "add"];
 const Main = () => {
   const users = useSelector(getUsersSelector);
   const authId = useSelector((state) => state.auth.authId);
@@ -18,7 +17,6 @@ const Main = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("authId");
     dispatch(removeAuthId());
     navigate("/login");
   };
@@ -32,14 +30,12 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    const authStorageId = localStorage.getItem("authId") || "";
-    const id = authId || authStorageId;
-    if (!id) {
+    if (!authId) {
       navigate("/login");
       return;
     }
 
-    setAuthUser(users[id]);
+    setAuthUser(users[authId]);
   }, [users]);
 
   useEffect(() => {
@@ -51,18 +47,20 @@ const Main = () => {
       <div className="header-container">
         <div className="main-header">
           <div className="main-nav">
-            {subRoute.map((el) => {
-              const isActive = currentPath.includes(el);
-              return (
-                <Link
-                  key={el}
-                  to={`/main/${el}`}
-                  className={`main-nav-item ${isActive ? "active" : ""}`}
-                >
-                  {el[0].toUpperCase() + el.slice(1)}
-                </Link>
-              );
-            })}
+            {authId
+              ? subRoute.map((el) => {
+                  const isActive = currentPath.includes(el);
+                  return (
+                    <Link
+                      key={el}
+                      to={`/${el}`}
+                      className={`main-nav-item ${isActive ? "active" : ""}`}
+                    >
+                      {el[0].toUpperCase() + el.slice(1)}
+                    </Link>
+                  );
+                })
+              : "Employee Polls"}
           </div>
 
           <div className="user">
@@ -80,7 +78,7 @@ const Main = () => {
               onClick={handleLogout}
               className="user-item"
             >
-              Logout
+              {authId ? "Logout" : "Login"}
             </button>
           </div>
         </div>

@@ -21,9 +21,8 @@ const Login = () => {
     }
     setIsError(false);
     dispatch(setAuthId(username));
-    localStorage.setItem("authId", username);
 
-    navigate("/main/home");
+    navigate("/home");
   };
 
   const input1 = {
@@ -47,19 +46,41 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="login-container">
-      <div className="login-header">
-        <h1 className="login-title">Employee Polls</h1>
-        <img src="./CODEOWNERS.png" alt="img" />
+    <>
+      <div className="header-container">
+        <div className="main-header">
+          <div className="main-nav">Employee Polls</div>
+
+          <button
+            style={{
+              background: "none",
+              color: "inherit",
+              border: "none",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              const input = document.getElementById("username");
+              input.focus();
+            }}
+          >
+            Login
+          </button>
+        </div>
       </div>
-      <CustomForm
-        title="Login"
-        onSubmit={handleSubmitForm}
-        input1={input1}
-        input2={input2}
-      />
-      {isError && <p>username or password is incorrect!</p>}
-    </div>
+      <div className="login-container">
+        <div className="login-header">
+          <h1 className="login-title">Employee Polls</h1>
+          <img src="./CODEOWNERS.png" alt="img" />
+        </div>
+        <CustomForm
+          title="Login"
+          onSubmit={handleSubmitForm}
+          input1={input1}
+          input2={input2}
+        />
+        {isError && <p>username or password is incorrect!</p>}
+      </div>
+    </>
   );
 };
 

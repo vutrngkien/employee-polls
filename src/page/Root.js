@@ -1,13 +1,14 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Root = () => {
+  const authId = useSelector((state) => state.auth.authId);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const authId = localStorage.getItem("authId");
     if (authId) {
-      navigate("/main/home");
+      navigate("/home");
       return;
     }
     navigate("/login");

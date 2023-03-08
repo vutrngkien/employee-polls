@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchQuestions } from "../redux/thunk/question.thunk";
 import { fetchUsers } from "../redux/thunk/user.thunk";
 import "../style/pollDetail.css";
@@ -13,27 +13,29 @@ const PollDetail = () => {
 
   const questions = useSelector((state) => state.question.questions);
   const users = useSelector((state) => state.user.users);
-  const authId = useSelector((state) => state.auth.auth);
+  const authId = useSelector((state) => state.auth.authId);
   const { question_id: questionId } = useParams();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const userAuthId = authId || localStorage.getItem("authId");
     const ques = questions[questionId];
     if (ques) {
       setQuestion(ques);
       setAuthor(users[ques.author]);
 
-      if (ques.optionOne.votes.includes(userAuthId)) {
+      if (ques.optionOne.votes.includes(authId)) {
         setOptionAnswer("optionOne");
       }
 
-      if (ques.optionTwo.votes.includes(userAuthId)) {
+      if (ques.optionTwo.votes.includes(authId)) {
         setOptionAnswer("optionTwo");
       }
+    } else {
+      navigate("/not-found");
     }
-  }, [questions, questionId, users, optionAnswer, authId]);
+  }, [questions, questionId, users, optionAnswer, authId, navigate]);
 
   const optOne = questions[questionId]?.optionOne.votes.length;
   const optTwo = questions[questionId]?.optionTwo.votes.length;
@@ -41,9 +43,8 @@ const PollDetail = () => {
   const handleVoteBtnClick = async (option) => {
     if (optionAnswer) return;
     setOptionAnswer(option);
-    const authedUser = authId || localStorage.getItem("authId");
     const ans = {
-      authedUser,
+      authedUser: authId,
       qid: questionId,
       answer: option,
     };

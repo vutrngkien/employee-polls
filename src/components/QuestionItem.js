@@ -4,7 +4,7 @@ const QuestionItem = ({ question }) => {
   const navigate = useNavigate();
 
   const handleShowPoll = () => {
-    navigate(`/main/questions/${question.id}`);
+    navigate(`/questions/${question.id}`);
   };
 
   const date = new Date(question.timestamp);
