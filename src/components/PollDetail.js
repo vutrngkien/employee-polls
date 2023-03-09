@@ -39,6 +39,7 @@ const PollDetail = () => {
 
   const optOne = questions[questionId]?.optionOne.votes.length;
   const optTwo = questions[questionId]?.optionTwo.votes.length;
+  const total = optOne + optTwo;
 
   const handleVoteBtnClick = async (option) => {
     if (optionAnswer) return;
@@ -90,14 +91,18 @@ const PollDetail = () => {
         </div>
       </div>
 
-      {optionAnswer && optOne + optTwo !== 0 && (
+      {optionAnswer && total !== 0 && (
         <div>
-          <p style={{ textAlign: "center" }}>{`${optOne}/${
-            optOne + optTwo
-          } users prefer option one`}</p>
-          <p style={{ textAlign: "center" }}>{`${optTwo}/${
-            optOne + optTwo
-          } users prefer option two`}</p>
+          <p
+            style={{ textAlign: "center" }}
+          >{`${optOne}/${total}(${Number.parseFloat(
+            (optOne / total) * 100
+          ).toFixed(2)}%) users prefer option one`}</p>
+          <p
+            style={{ textAlign: "center" }}
+          >{`${optTwo}/${total}(${Number.parseFloat(
+            (optTwo / total) * 100
+          ).toFixed(2)}%) users prefer option two`}</p>
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
 import Login from "../page/Login";
 import Main from "../page/Main";
-import Root from "../page/Root";
+import PrivateRoute from "../page/PrivateRoute";
 import Home from "../components/Home";
 import Leaderboard from "../components/Leaderboard";
 import New from "../components/New";
@@ -9,16 +9,16 @@ import NotFound from "../page/NotFound";
 
 const routes = [
   {
-    path: "/",
-    element: <Root />,
-  },
-  {
     path: "/login",
     element: <Login />,
   },
   {
     path: "/",
-    element: <Main />,
+    element: (
+      <PrivateRoute>
+        <Main />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/home",

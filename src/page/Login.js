@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CustomForm from "../components/CustomForm";
 import "../style/login.css";
 import { setAuthId } from "../redux/reducer/authReducer";
 import { getUsersSelector } from "../redux/selector/user";
 import { fetchUsers } from "../redux/thunk/user.thunk";
+import { fetchQuestions } from "../redux/thunk/question.thunk";
 
 const Login = () => {
   const [isError, setIsError] = useState(false);
   const users = useSelector(getUsersSelector);
+  const location = useLocation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,8 +23,7 @@ const Login = () => {
     }
     setIsError(false);
     dispatch(setAuthId(username));
-
-    navigate("/home");
+    navigate(location.state?.path || "/home");
   };
 
   const input1 = {
@@ -42,7 +43,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (!users.length) dispatch(fetchUsers());
+    if (!users.length) {
+      dispatch(fetchUsers());
+      dispatch(fetchQuestions());
+    }
   }, []);
 
   return (
